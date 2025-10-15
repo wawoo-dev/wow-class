@@ -21,14 +21,33 @@ const CurriculumListItem = ({
     assignmentTitle,
     assignmentPeriod,
   } = curriculum;
-  const { startDate, endDate } = lessonPeriod;
-  const {
-    month: startMonth,
-    day: startDay,
-    hours: startHour,
-    minutes: startMinute,
-  } = parseISODate(startDate);
-  const { hours: endHour, minutes: endMinute } = parseISODate(endDate);
+  const lessonSchedule = () => {
+    if (lessonPeriod) {
+      const { startDate, endDate } = lessonPeriod;
+      const {
+        month: startMonth,
+        day: startDay,
+        hours: startHour,
+        minutes: startMinute,
+      } = parseISODate(startDate);
+      const { hours: endHour, minutes: endMinute } = parseISODate(endDate);
+      const startTime = `${padWithZero(startHour)}:${padWithZero(startMinute)}`;
+      const endTime = `${padWithZero(endHour)}:${padWithZero(endMinute)}`;
+
+      return (
+        <>
+          <Text color="sub" typo="body2">
+            {startMonth}월 {startDay}일
+          </Text>
+          <Text color="sub" style={TimeStyle} typo="body2">
+            {startTime}-{endTime}
+          </Text>
+        </>
+      );
+    } else {
+      null;
+    }
+  };
 
   const { month: assignmentStartMonth, day: assignmentStartDay } = parseISODate(
     assignmentPeriod.startDate
@@ -40,8 +59,6 @@ const CurriculumListItem = ({
     minutes: assignmentEndMinute,
   } = parseISODate(assignmentPeriod.endDate);
 
-  const startTime = `${padWithZero(startHour)}:${padWithZero(startMinute)}`;
-  const endTime = `${padWithZero(endHour)}:${padWithZero(endMinute)}`;
   const assignmentEndTime = `${padWithZero(assignmentEndHour)}:${padWithZero(assignmentEndMinute)}`;
 
   return (
@@ -50,16 +67,7 @@ const CurriculumListItem = ({
         <Flex gap="48px" width="100%">
           <Flex direction="column" minWidth={52}>
             <Text typo="body1">{position}회차</Text>
-            {isOnlineOfflineStudyType(studyType) && (
-              <>
-                <Text color="sub" typo="body2">
-                  {startMonth}월 {startDay}일
-                </Text>
-                <Text color="sub" style={TimeStyle} typo="body2">
-                  {startTime}-{endTime}
-                </Text>
-              </>
-            )}
+            {isOnlineOfflineStudyType(studyType) && lessonSchedule()}
           </Flex>
 
           <Flex direction="column" gap="xxs" width="100%">
