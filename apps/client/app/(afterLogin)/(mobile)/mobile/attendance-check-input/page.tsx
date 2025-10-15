@@ -4,11 +4,10 @@ import { Flex } from "@styled-system/jsx";
 import { Space, Text } from "@wow-class/ui";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { color } from "wowds-tokens";
 import Button from "wowds-ui/Button";
 
-import Spinner from "../_components/Spinner";
 import AttendanceCheckForm from "./_components/AttendanceCheckForm";
 import StudyInfo from "./_components/StudyInfo";
 
@@ -31,9 +30,7 @@ const MobileAttendanceCheckInputPage = () => {
       <Space height={40} />
       <Text typo="h1">출석이 완료되었어요</Text>
       <Space height={12} />
-      <Suspense fallback={<Spinner />}>
-        <StudyInfo />
-      </Suspense>
+      <StudyInfo />
       <Button
         aria-label="메인 화면으로 돌아가기"
         asProp={Link}
@@ -54,13 +51,12 @@ const MobileAttendanceCheckInputPage = () => {
         출결번호를 입력해주세요.
       </Text>
       <Space height={20} />
-      <Suspense fallback={<Spinner />}>
-        <AttendanceCheckForm
-          onAttendanceSuccess={() => {
-            setAttended(true);
-          }}
-        />
-      </Suspense>
+
+      <AttendanceCheckForm
+        onAttendanceSuccess={() => {
+          setAttended(true);
+        }}
+      />
     </Flex>
   );
 };
