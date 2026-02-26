@@ -68,24 +68,30 @@ const Header = ({
   } = studyInfo;
 
   const studySchedule = () => {
-    if (startTime) {
+    if (startTime && endTime) {
       const { hour: startHour, minute: startMinute } = startTime;
       const { hour: endHour, minute: endMinute } = endTime;
       return `${dayToKorean[dayOfWeek]} ${startHour}:${padWithZero(startMinute)}-
         ${endHour}:${padWithZero(endMinute)}`;
-    } else {
-      null;
     }
+    return null;
   };
 
-  const { month: startMonth, day: startDay } = parseISODate(openingDate);
+  const studyPeriod =
+    openingDate && totalRound
+      ? (() => {
+          const { month: startMonth, day: startDay } =
+            parseISODate(openingDate);
+          const { month: endMonth, day: endDay } = parseISODate(
+            dateToFormatString(
+              getStudyEndDate(new Date(openingDate), totalRound)
+            )
+          );
+          return `${padWithZero(startMonth)}.${padWithZero(startDay)}-${padWithZero(endMonth)}.${padWithZero(endDay)}`;
+        })()
+      : null;
 
-  const { month: endMonth, day: endDay } = parseISODate(
-    dateToFormatString(getStudyEndDate(new Date(openingDate), totalRound))
-  );
   const studySemester = `${semester.academicYear}-${semester.semesterType === "FIRST" ? 1 : 2}`;
-
-  const studyPeriod = `${padWithZero(startMonth)}.${padWithZero(startDay)}-${padWithZero(endMonth)}.${padWithZero(endDay)}`;
 
   return (
     <header>
@@ -139,7 +145,7 @@ const Header = ({
                 스터디 일정
               </Text>
               <Flex gap="xs">
-                {startTime && (
+                {startTime && endTime && (
                   <Flex gap="xs">
                     <Text as="h5" color="sub">
                       {studySchedule()}
@@ -147,9 +153,11 @@ const Header = ({
                     <ItemSeparator height={4} width={4} />
                   </Flex>
                 )}
-                <Text as="h5" color="sub">
-                  {studyPeriod}
-                </Text>
+                {studyPeriod && (
+                  <Text as="h5" color="sub">
+                    {studyPeriod}
+                  </Text>
+                )}
               </Flex>
             </Flex>
           </section>

@@ -9,17 +9,18 @@ const AttendanceList = ({
 }: {
   studySessions?: StudySessionApiResponseV2Dto[];
 }) => {
+  console.log(studySessions);
   return (
     <section>
       <Text typo="h2">회차별 출결번호</Text>
       <Space height={24} />
       <Flex align="center" gap="md" overflow="scroll">
-        {studySessions?.map((data, index) => (
+        {studySessions?.map((data) => (
           <AttendanceItem
             attendanceNumber={data.lessonAttendanceNumber}
-            deadLine={data.lessonPeriod.endDate}
-            key={`${data.studySessionId}-${index}`}
-            round={index + 1}
+            deadLine={data.lessonPeriod?.endDate}
+            key={data.studySessionId}
+            round={data.position}
             studySessionId={data.studySessionId}
           />
         ))}
