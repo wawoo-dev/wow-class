@@ -20,7 +20,7 @@ const AssignemntTextInfo = ({ index }: { index: number }) => {
           style={{ position: "absolute", right: "8px" }}
           typo="label3"
         >
-          {watch(`studySessions.${index}.assignmentTitle`)?.length}/100
+          {watch(`studySessions.${index}.assignmentTitle`)?.length ?? 0}/100
         </Text>
       </div>
       <div className={CurriculumDescriptionStyle}>

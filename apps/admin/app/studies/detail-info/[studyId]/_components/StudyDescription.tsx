@@ -42,7 +42,7 @@ const StudyDescription = () => {
               스터디 한 줄 소개
             </Text>
             <Text color="sub" typo="label2">
-              {watch("description")?.length}/100
+              {watch("description")?.length ?? 0}/100
             </Text>
           </styled.label>
           <styled.textarea

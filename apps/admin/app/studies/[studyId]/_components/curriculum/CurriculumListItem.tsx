@@ -49,17 +49,21 @@ const CurriculumListItem = ({
     }
   };
 
-  const { month: assignmentStartMonth, day: assignmentStartDay } = parseISODate(
-    assignmentPeriod.startDate
-  );
-  const {
-    month: assignmentEndMonth,
-    day: assignmentEndDay,
-    hours: assignmentEndHour,
-    minutes: assignmentEndMinute,
-  } = parseISODate(assignmentPeriod.endDate);
-
-  const assignmentEndTime = `${padWithZero(assignmentEndHour)}:${padWithZero(assignmentEndMinute)}`;
+  const assignmentSchedule = assignmentPeriod
+    ? (() => {
+        const { month: startMonth, day: startDay } = parseISODate(
+          assignmentPeriod.startDate
+        );
+        const {
+          month: endMonth,
+          day: endDay,
+          hours: endHour,
+          minutes: endMinute,
+        } = parseISODate(assignmentPeriod.endDate);
+        const endTime = `${padWithZero(endHour)}:${padWithZero(endMinute)}`;
+        return { startMonth, startDay, endMonth, endDay, endTime };
+      })()
+    : null;
 
   return (
     <Table>
@@ -96,15 +100,18 @@ const CurriculumListItem = ({
                   width="100%"
                 >
                   <Text>{assignmentTitle || "과제 제목을 입력해주세요"}</Text>
-                  <Text
-                    color="primary"
-                    style={{ whiteSpace: "nowrap" }}
-                    typo="body2"
-                  >
-                    과제 기간: {assignmentStartMonth}월 {assignmentStartDay}일 ~{" "}
-                    {assignmentEndMonth}월 {assignmentEndDay}일{" "}
-                    {assignmentEndTime}
-                  </Text>
+                  {assignmentSchedule && (
+                    <Text
+                      color="primary"
+                      style={{ whiteSpace: "nowrap" }}
+                      typo="body2"
+                    >
+                      과제 기간: {assignmentSchedule.startMonth}월{" "}
+                      {assignmentSchedule.startDay}일 ~{" "}
+                      {assignmentSchedule.endMonth}월{" "}
+                      {assignmentSchedule.endDay}일 {assignmentSchedule.endTime}
+                    </Text>
+                  )}
                 </Flex>
               }
             />
