@@ -11,7 +11,7 @@ import { DayPicker } from "react-day-picker";
 import { Controller, useFormContext } from "react-hook-form";
 import type { PeriodType } from "types/entities/period";
 interface StudyDatePickProps {
-  lessonPeriod: PeriodType;
+  lessonPeriod?: PeriodType;
   index: number;
 }
 const StudyDatePick = ({ index, lessonPeriod }: StudyDatePickProps) => {
@@ -24,11 +24,11 @@ const StudyDatePick = ({ index, lessonPeriod }: StudyDatePickProps) => {
 
   const [watchedStartDateOnly, watchedStartTime] = watchedStartDate
     ? watchedStartDate.split("T")
-    : [lessonPeriod.startDate?.split("T")[0] || "", "00:00:00"];
+    : [lessonPeriod?.startDate?.split("T")?.[0] || "", "00:00:00"];
 
   const [_, watchedEndTime] = watchedEndDate
     ? watchedEndDate.split("T")
-    : [lessonPeriod.endDate?.split("T")[0] || "", "23:59:59"];
+    : [lessonPeriod?.endDate?.split("T")?.[0] || "", "23:59:59"];
 
   const [studyDate, setStudyDate] = useState<string>(watchedStartDateOnly);
   const [inputValue, setInputValue] = useState(watchedStartDateOnly);

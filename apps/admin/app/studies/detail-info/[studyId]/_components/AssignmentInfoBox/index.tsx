@@ -8,10 +8,10 @@ const AssignmentInfoBox = ({
   assignmentPeriod,
   index,
 }: {
-  assignmentPeriod: {
+  assignmentPeriod?: {
     startDate: string;
     endDate: string;
-  };
+  } | null;
   index: number;
 }) => {
   return (
