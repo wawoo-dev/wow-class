@@ -4,10 +4,9 @@ import { css } from "@styled-system/css";
 import { Flex } from "@styled-system/jsx";
 import { Space, Text } from "@wow-class/ui";
 import {
-  dateToFormatString,
+  formatWeekPeriod,
   getStudyEndDate,
   padWithZero,
-  parseISODate,
 } from "@wow-class/utils";
 import { studyApi } from "apis/study/studyApi";
 import ItemSeparator from "components/ItemSeparator";
@@ -78,16 +77,10 @@ const Header = ({
   };
 
   const studyPeriod =
-    openingDate && totalRound
+    openingDate && totalRound >= 0
       ? (() => {
-          const { month: startMonth, day: startDay } =
-            parseISODate(openingDate);
-          const { month: endMonth, day: endDay } = parseISODate(
-            dateToFormatString(
-              getStudyEndDate(new Date(openingDate), totalRound)
-            )
-          );
-          return `${padWithZero(startMonth)}.${padWithZero(startDay)}-${padWithZero(endMonth)}.${padWithZero(endDay)}`;
+          const endDate = getStudyEndDate(new Date(openingDate), totalRound);
+          return formatWeekPeriod(openingDate, endDate.toISOString());
         })()
       : null;
 

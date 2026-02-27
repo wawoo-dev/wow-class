@@ -9,7 +9,6 @@ const AttendanceList = ({
 }: {
   studySessions?: StudySessionApiResponseV2Dto[];
 }) => {
-  console.log(studySessions);
   return (
     <section>
       <Text typo="h2">회차별 출결번호</Text>

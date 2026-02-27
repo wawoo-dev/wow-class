@@ -35,10 +35,10 @@ const AssignmentDatePick = ({
   );
 
   const initialStartDate =
-    (watchedStartDate || assignmentPeriod?.startDate)?.split("T")?.[0] || "";
+    (watchedStartDate ?? assignmentPeriod?.startDate)?.split("T")?.[0] ?? "";
 
   const initialEndDate =
-    (watchedEndDate || assignmentPeriod?.endDate)?.split("T")?.[0] || "";
+    (watchedEndDate ?? assignmentPeriod?.endDate)?.split("T")?.[0] ?? "";
 
   const [studyDate, setStudyDate] = useState({
     fromValue: initialStartDate,

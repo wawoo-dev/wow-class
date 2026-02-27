@@ -14,7 +14,6 @@ const StudyCurriculum = ({
   studySessions,
   isAssignmentStudy,
 }: CurriculumListProps) => {
-  console.log(studySessions);
   return (
     <section
       aria-label="create-study-description"
