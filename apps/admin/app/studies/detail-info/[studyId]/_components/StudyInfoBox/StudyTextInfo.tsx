@@ -21,7 +21,7 @@ const StudyTextInfo = ({ index }: { index: number }) => {
           style={{ position: "absolute", right: "8px" }}
           typo="label3"
         >
-          {watch(`studySessions.${index}.lessonTitle`)?.length}/100
+          {watch(`studySessions.${index}.lessonTitle`)?.length ?? 0}/100
         </Text>
       </div>
       <div className={CurriculumDescriptionStyle}>
@@ -39,7 +39,7 @@ const StudyTextInfo = ({ index }: { index: number }) => {
           style={{ position: "absolute", right: "8px" }}
           typo="label3"
         >
-          {watch(`studySessions.${index}.description`)?.length}/100
+          {watch(`studySessions.${index}.description`)?.length ?? 0}/100
         </Text>
       </div>
     </>

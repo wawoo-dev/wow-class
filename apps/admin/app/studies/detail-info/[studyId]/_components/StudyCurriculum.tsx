@@ -25,7 +25,7 @@ const StudyCurriculum = ({
         <Flex gap={30} key={`studyInfo-${index}`}>
           <span>{index + 1}회차</span>
           <Flex flexDirection="column" gap={15} style={{ flex: 1 }}>
-            {!isAssignmentStudy && lessonPeriod && (
+            {!isAssignmentStudy && (
               <StudyInfoBox
                 index={index}
                 key={`studyInfo-${index}-lesson`}

@@ -30,7 +30,7 @@ const StudyList = () => {
               `${studyItem.study.semester.academicYear}-${studyItem.study.semester.semesterType === "FIRST" ? 1 : 2}`) && (
             <StudyListItem
               adminStatus={adminStatus}
-              key={`studyItem-${index}`}
+              key={`${studyItem.study.studyId}`}
               study={studyItem}
             />
           )

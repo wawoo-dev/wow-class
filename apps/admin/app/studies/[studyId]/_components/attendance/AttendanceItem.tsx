@@ -15,16 +15,18 @@ const AttendanceItem = ({
 }: {
   round: number;
   studySessionId: number;
-  deadLine: string;
+  deadLine?: string;
   attendanceNumber: string;
 }) => {
-  const { year, month, day, hours, minutes } = parseISODate(deadLine);
+  const dateInfo = deadLine ? parseISODate(deadLine) : null;
 
-  const state = getIsToday(deadLine)
-    ? "ONGOING_ATTENDANCE"
-    : getNowIsAfterDate(deadLine)
-      ? "AFTER_ATTENDANCE"
-      : "BEFORE_ATTENDANCE";
+  const state = deadLine
+    ? getIsToday(deadLine)
+      ? "ONGOING_ATTENDANCE"
+      : getNowIsAfterDate(deadLine)
+        ? "AFTER_ATTENDANCE"
+        : "BEFORE_ATTENDANCE"
+    : "BEFORE_ATTENDANCE";
   const { label, color } = attendanceStatusMap[state];
 
   return (
@@ -39,14 +41,16 @@ const AttendanceItem = ({
               {label}
             </Tag>
           </Flex>
-          <Text
-            color="sub"
-            style={{ paddingBottom: "1.25rem", whiteSpace: "nowrap" }}
-            typo="body1"
-          >
-            {year}년 {month}월 {day}일 00:00 - {padWithZero(hours)}:
-            {padWithZero(minutes)}까지
-          </Text>
+          {dateInfo && (
+            <Text
+              color="sub"
+              style={{ paddingBottom: "1.25rem", whiteSpace: "nowrap" }}
+              typo="body1"
+            >
+              {dateInfo.year}년 {dateInfo.month}월 {dateInfo.day}일 00:00 -{" "}
+              {padWithZero(dateInfo.hours)}:{padWithZero(dateInfo.minutes)}까지
+            </Text>
+          )}
           <Text
             color={state === "ONGOING_ATTENDANCE" ? "primary" : "outline"}
             style={AttendanceNumberStyle}

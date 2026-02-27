@@ -17,7 +17,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import type { PeriodType } from "types/entities/period";
 
 interface AssignmentDatePickProps {
-  assignmentPeriod: PeriodType;
+  assignmentPeriod?: PeriodType | null;
   index: number;
 }
 
@@ -27,17 +27,18 @@ const AssignmentDatePick = ({
 }: AssignmentDatePickProps) => {
   const { control, setValue, watch } = useFormContext();
 
+  const watchedStartDate = watch(
+    `studySessions[${index}].assignmentPeriod.startDate`
+  );
+  const watchedEndDate = watch(
+    `studySessions[${index}].assignmentPeriod.endDate`
+  );
+
   const initialStartDate =
-    (
-      watch(`studySessions[${index}].assignmentPeriod.startDate`) ||
-      assignmentPeriod.startDate
-    )?.split("T")[0] || "";
+    (watchedStartDate ?? assignmentPeriod?.startDate)?.split("T")?.[0] ?? "";
 
   const initialEndDate =
-    (
-      watch(`studySessions[${index}].assignmentPeriod.endDate`) ||
-      assignmentPeriod.endDate
-    )?.split("T")[0] || "";
+    (watchedEndDate ?? assignmentPeriod?.endDate)?.split("T")?.[0] ?? "";
 
   const [studyDate, setStudyDate] = useState({
     fromValue: initialStartDate,

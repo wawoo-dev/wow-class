@@ -10,7 +10,7 @@ const StudyInfoBox = ({
   lessonPeriod,
   index,
 }: {
-  lessonPeriod: PeriodType;
+  lessonPeriod?: PeriodType;
   index: number;
 }) => {
   return (

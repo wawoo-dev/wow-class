@@ -18,32 +18,37 @@ const StudyTimePick = ({ index }: { index: number }) => {
   );
   const watchedEndDate = watch(`studySessions.${index}.lessonPeriod.endDate`);
 
-  const [startDate, watchedStartTime] = watchedStartDate
+  const startDateParts = watchedStartDate
     ? watchedStartDate.split("T")
     : ["", "00:00:00"];
+  const startDate = startDateParts[0] || "";
+  const watchedStartTime = startDateParts[1] || "00:00:00";
 
-  const [_, watchedEndTime] = watchedEndDate
+  const endDateParts = watchedEndDate
     ? watchedEndDate.split("T")
     : ["", "23:59:59"];
+  const watchedEndTime = endDateParts[1] || "23:59:59";
 
   const formattedStartDate = startDate || "";
   const formattedEndDate = startDate || "";
 
+  const formatTime = (time: string) => {
+    const parts = time.split(":");
+    if (parts.length >= 2) {
+      return `${parts[0]}:${parts[1]}`;
+    }
+    return "00:00";
+  };
+
   const [value, onChange] = useState<Value>(
     watchedStartTime && watchedEndTime
-      ? [
-          `${watchedStartTime.split(":")[0]}:${watchedStartTime.split(":")[1]}`,
-          `${watchedEndTime.split(":")[0]}:${watchedEndTime.split(":")[1]}`,
-        ]
+      ? [formatTime(watchedStartTime), formatTime(watchedEndTime)]
       : ["00:00", "23:59"]
   );
 
   useEffect(() => {
     if (watchedStartTime && watchedEndTime) {
-      onChange([
-        `${watchedStartTime.split(":")[0]}:${watchedStartTime.split(":")[1]}`,
-        `${watchedEndTime.split(":")[0]}:${watchedEndTime.split(":")[1]}`,
-      ]);
+      onChange([formatTime(watchedStartTime), formatTime(watchedEndTime)]);
     }
   }, [watchedStartTime, watchedEndTime]);
 
@@ -51,10 +56,13 @@ const StudyTimePick = ({ index }: { index: number }) => {
     if (!value) return;
     onChange(value);
     if (Array.isArray(value) && value.length === 2) {
-      const startTime = value[0]?.toString().split(":");
-      const endTime = value[1]?.toString().split(":");
+      const startTimeStr = value[0]?.toString() || "";
+      const endTimeStr = value[1]?.toString() || "";
 
-      if (startTime && endTime) {
+      const startTime = startTimeStr.split(":");
+      const endTime = endTimeStr.split(":");
+
+      if (startTime.length >= 2 && endTime.length >= 2) {
         if (startTime > endTime) {
           window.alert("스터디 종료 시간은 스터디 시작 시간 이후여야 합니다!");
           return;
