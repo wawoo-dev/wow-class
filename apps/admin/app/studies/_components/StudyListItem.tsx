@@ -45,7 +45,9 @@ const StudyListItem = ({
         </Flex>
       </Table.Left>
       <Table.Right style={TableRightStyle}>
-        <Text typo="body1">{mentorName} 멘토</Text>
+        <Text typo="body1">
+          {mentorName != null ? `${mentorName} 멘토` : "탈퇴한 회원"}
+        </Text>
         <Link
           href={descriptionNotionLink || ""}
           rel="noopener"

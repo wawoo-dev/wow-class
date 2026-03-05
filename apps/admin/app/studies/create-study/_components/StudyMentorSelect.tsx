@@ -56,9 +56,13 @@ const StudyMentorSelect = () => {
                     className={MemberListItemStyle}
                     key={data.memberId}
                     onClick={() => {
-                      setValue("mentorId", data.memberId, {
-                        shouldValidate: true,
-                      });
+                      setValue(
+                        "mentorId",
+                        data.memberId !== null ? data.memberId : 0,
+                        {
+                          shouldValidate: true,
+                        }
+                      );
                       setOpenPopup(false);
                       setMentor(data.name);
                     }}
