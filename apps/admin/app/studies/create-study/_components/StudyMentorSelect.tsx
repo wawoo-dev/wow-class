@@ -30,7 +30,10 @@ const StudyMentorSelect = () => {
         studentId: data.studentId,
       };
     });
-    setMemberList([...formatMentorList]);
+    const filteredMentorList = formatMentorList.filter(
+      (mentor) => mentor.name !== null
+    );
+    setMemberList([...filteredMentorList]);
     setOpenPopup(true);
   };
 

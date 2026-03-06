@@ -31,8 +31,8 @@ export interface BasicStudyInfoDto {
   endTime: Time;
   applicationPeriod: PeriodType;
   openingDate: string;
-  mentorId: number;
-  mentorName: string;
+  mentorId: number | null;
+  mentorName: string | null;
   minAssignmentLength?: number;
 }
 export interface StudyAnnouncementDto {
@@ -57,8 +57,8 @@ export interface OngoingStudyInfo {
     academicYear: number;
     semesterType: SemesterType;
   };
-  mentorId: number;
-  mentorName: string;
+  mentorId: number | null;
+  mentorName: string | null;
 }
 
 export type MyOngoingStudyInfoDtoV2 = OngoingStudyInfo[];

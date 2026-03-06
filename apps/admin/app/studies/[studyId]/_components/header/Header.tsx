@@ -121,7 +121,7 @@ const Header = ({
           </Text>
           <ItemSeparator height={4} width={4} />
           <Text as="h5" color="sub">
-            {mentorName} 멘토
+            {mentorName != null ? `${mentorName} 멘토` : "탈퇴한 회원"}
           </Text>
           <ItemSeparator height={4} width={4} />
           <Text as="h5" color="sub">
