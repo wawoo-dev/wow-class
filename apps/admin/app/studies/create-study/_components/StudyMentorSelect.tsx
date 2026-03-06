@@ -30,7 +30,10 @@ const StudyMentorSelect = () => {
         studentId: data.studentId,
       };
     });
-    setMemberList([...formatMentorList]);
+    const filteredMentorList = formatMentorList.filter(
+      (mentor) => mentor.name !== null
+    );
+    setMemberList([...filteredMentorList]);
     setOpenPopup(true);
   };
 
@@ -56,13 +59,9 @@ const StudyMentorSelect = () => {
                     className={MemberListItemStyle}
                     key={data.memberId}
                     onClick={() => {
-                      setValue(
-                        "mentorId",
-                        data.memberId !== null ? data.memberId : 0,
-                        {
-                          shouldValidate: true,
-                        }
-                      );
+                      setValue("mentorId", data.memberId, {
+                        shouldValidate: true,
+                      });
                       setOpenPopup(false);
                       setMentor(data.name);
                     }}
