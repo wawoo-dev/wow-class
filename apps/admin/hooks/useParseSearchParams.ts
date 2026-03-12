@@ -9,10 +9,17 @@ const useParseSearchParams = () => {
     const params = new URLSearchParams(query);
     const result: Partial<T> = {};
 
+    const stringKeys = new Set(["discordChannelId", "discordRoleId"]);
+
     params.forEach((value, key) => {
+      if (stringKeys.has(key)) {
+        result[key as keyof T] = value as any;
+        return;
+      }
+
       try {
         result[key as keyof T] = JSON.parse(value);
-      } catch (e) {
+      } catch {
         result[key as keyof T] = value as any;
       }
     });
