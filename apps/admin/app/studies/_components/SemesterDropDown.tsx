@@ -4,11 +4,12 @@ import type { ReactNode } from "react";
 import DropDown from "wowds-ui/DropDown";
 import DropDownOption from "wowds-ui/DropDownOption";
 
-import { useFetchStudies } from "../_hooks/useFetchStudies";
+interface SemesterDropDownProps {
+  semesterList: string[] | undefined;
+}
 
-const SemesterDropDown = () => {
+const SemesterDropDown = ({ semesterList }: SemesterDropDownProps) => {
   const router = useRouter();
-  const { semesterList } = useFetchStudies();
   const querySemester = useSearchParams().get("semester");
 
   const handleValueChange = (value: {

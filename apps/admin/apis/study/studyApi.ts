@@ -16,6 +16,7 @@ export const studyApi = {
       apiPath.studyList,
       {
         next: { tags: [tags.studyList] },
+        cache: "force-cache",
       }
     );
 
