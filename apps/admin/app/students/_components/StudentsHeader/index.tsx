@@ -2,43 +2,34 @@
 
 import { Flex } from "@styled-system/jsx";
 import { Text } from "@wow-class/ui";
-import { studyApi } from "apis/study/studyApi";
 import ItemSeparator from "components/ItemSeparator";
 import { useAtom } from "jotai";
 import type { CSSProperties } from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import type { StudyListApiResponseDto } from "types/dtos/studyList";
-import isAdmin from "utils/isAdmin";
 
 import { studyAtom } from "../../_contexts/StudyProvider";
 import StudyDropDown from "../StudyDropDown";
 import DownloadButton from "./DownloadButton";
 import StudentsHeaderButtons from "./StudentHeaderButtons";
 
-const StudentsHeader = () => {
-  const [studyList, setStudyList] = useState<StudyListApiResponseDto[]>();
+interface StudentsHeaderProps {
+  studyList: StudyListApiResponseDto[];
+}
+
+const StudentsHeader = ({ studyList }: StudentsHeaderProps) => {
   const [selectedStudy, setSelectedStudy] = useAtom(studyAtom);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const adminStatus = await isAdmin();
-      const data = adminStatus
-        ? await studyApi.getStudyList()
-        : await studyApi.getMyStudyList();
+    if (!selectedStudy && studyList[0]) {
+      setSelectedStudy({
+        studyId: studyList[0].study.studyId,
+        title: studyList[0].study.title,
+      });
+    }
+  }, []);
 
-      if (data && data.length && data[0]) {
-        setStudyList(data);
-        setSelectedStudy({
-          studyId: data[0].study.studyId,
-          title: data[0].study.title,
-        });
-      }
-    };
-
-    fetchData();
-  }, [setSelectedStudy]);
-
-  if (!selectedStudy || !studyList) return null;
+  if (!selectedStudy || studyList.length === 0) return null;
 
   return (
     <Flex justify="space-between" paddingBottom="1.5rem">

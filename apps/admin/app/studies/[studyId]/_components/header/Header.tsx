@@ -8,38 +8,22 @@ import {
   getStudyEndDate,
   padWithZero,
 } from "@wow-class/utils";
-import { studyApi } from "apis/study/studyApi";
 import ItemSeparator from "components/ItemSeparator";
 import { dayToKorean } from "constants/dayToKorean";
 import { studyToKoreanType } from "constants/study";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { StudyBasicInfoApiResponseDto } from "types/dtos/studyBasicInfo";
 import { DownArrow } from "wowds-icons";
 import TextButton from "wowds-ui/TextButton";
 
 const Header = ({
-  studyId,
-  isCompact = false,
+  studyInfo,
 }: {
-  studyId: string;
-  isCompact?: boolean;
+  studyInfo: StudyBasicInfoApiResponseDto | undefined;
 }) => {
   const [showIntro, setShowIntro] = useState(true);
-  const [studyInfo, setStudyInfo] = useState<
-    StudyBasicInfoApiResponseDto | undefined
-  >(undefined);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (studyId) {
-        const data = await studyApi.getStudyBasicInfo(parseInt(studyId, 10));
-        if (data) setStudyInfo(data);
-      }
-    };
-
-    fetchData();
-  }, [studyId]);
   const handleClickShowIntro = () => {
     setShowIntro((prev) => !prev);
   };
@@ -100,16 +84,14 @@ const Header = ({
             tabIndex={0}
             onClick={handleClickShowIntro}
           >
-            {!isCompact && (
-              <DownArrow
-                aria-label={introSectionIconAriaLabel}
-                className={downArrowIconStyle}
-                height={20}
-                stroke="textBlack"
-                style={{ rotate: showIntro ? "180deg" : "0deg" }}
-                width={20}
-              />
-            )}
+            <DownArrow
+              aria-label={introSectionIconAriaLabel}
+              className={downArrowIconStyle}
+              height={20}
+              stroke="textBlack"
+              style={{ rotate: showIntro ? "180deg" : "0deg" }}
+              width={20}
+            />
           </button>
         </Flex>
       </section>
