@@ -54,7 +54,7 @@ const StudyPage = async ({ params }: { params: { studyId: string } }) => {
           <Edit height={24} stroke="black" width={24} />
         </Link>
       </div>
-      {isOnlineOfflineStudyType(studyType) && (
+      {studyInfo && isOnlineOfflineStudyType(studyType) && (
         <AttendanceList studySessions={myStudy?.studySessions} />
       )}
       <Divider style={MinHeightFullDividerStyle} />

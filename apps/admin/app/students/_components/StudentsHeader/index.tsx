@@ -27,7 +27,7 @@ const StudentsHeader = ({ studyList }: StudentsHeaderProps) => {
         title: studyList[0].study.title,
       });
     }
-  }, []);
+  }, [studyList, selectedStudy, setSelectedStudy]);
 
   if (!selectedStudy || studyList.length === 0) return null;
 
