@@ -44,6 +44,5 @@ export default StudyList;
 const SectionStyle = css({
   width: "100%",
   height: "100%",
-  overflow: "scroll",
-  scrollbarWidth: "none",
+  overflow: "auto",
 });
