@@ -33,17 +33,16 @@ const Curriculum = async ({ studyId }: { studyId: number }) => {
             assignmentHistoryStatus,
             assignmentHistory,
           }) => (
-            <>
+            <div key={session.position}>
               <CurriculumItem
                 assignmentHistory={assignmentHistory}
                 assignmentHistoryStatus={assignmentHistoryStatus}
                 attendanceStatus={attendanceStatus}
-                key={session.position}
                 session={session}
                 studyHistory={studyDashboard.studyHistory}
               />
               <Space height={50} />
-            </>
+            </div>
           )
         )}
       </div>
