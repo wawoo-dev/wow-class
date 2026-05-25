@@ -2,20 +2,29 @@
 import { css } from "@styled-system/css";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import type { StudyListApiResponseDto } from "types/dtos/studyList";
 
-import { useFetchStudies } from "../_hooks/useFetchStudies";
 import EmptyStudyList from "./EmptyStudyList";
 import StudyListItem from "./StudyListItem";
 
-const StudyList = () => {
+interface StudyListProps {
+  studyList: StudyListApiResponseDto[] | undefined;
+  semesterList: string[] | undefined;
+  adminStatus: boolean;
+}
+
+const StudyList = ({
+  studyList,
+  semesterList,
+  adminStatus,
+}: StudyListProps) => {
   const semester = useSearchParams().get("semester");
-  const { studyList, semesterList, adminStatus } = useFetchStudies();
   const router = useRouter();
 
   useEffect(() => {
-    if (semester && semesterList && !semesterList?.includes(semester))
+    if (semester && semesterList && !semesterList.includes(semester))
       router.replace("/studies");
-  }, [router, semester, semesterList, studyList]);
+  }, [router, semester, semesterList]);
 
   if (studyList?.length === 0) {
     return <EmptyStudyList />;
@@ -24,7 +33,7 @@ const StudyList = () => {
   return (
     <section aria-label="study-list" className={SectionStyle}>
       {studyList?.map(
-        (studyItem, index) =>
+        (studyItem) =>
           (semester === null ||
             semester ===
               `${studyItem.study.semester.academicYear}-${studyItem.study.semester.semesterType === "FIRST" ? 1 : 2}`) && (
