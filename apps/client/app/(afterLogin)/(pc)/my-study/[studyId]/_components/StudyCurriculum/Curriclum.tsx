@@ -14,41 +14,47 @@ const Curriculum = async ({ studyId }: { studyId: number }) => {
   }
   return (
     <div className={containerStyle}>
-      <Text as="h2" typo="h2">
-        스터디 커리큘럼
-      </Text>
-      <Space height={10} />
-      <Description />
-      <Space height={50} />
-      <RepositorySubmissionBox
-        repositoryLink={studyDashboard.studyHistory.githubLink}
-        studyId={studyId}
-      />
-      <Space height={50} />
-      {studyDashboard.sessions.map(
-        ({
-          session,
-          attendanceStatus,
-          assignmentHistoryStatus,
-          assignmentHistory,
-        }) => (
-          <>
-            <CurriculumItem
-              assignmentHistory={assignmentHistory}
-              assignmentHistoryStatus={assignmentHistoryStatus}
-              attendanceStatus={attendanceStatus}
-              key={session.position}
-              session={session}
-              studyHistory={studyDashboard.studyHistory}
-            />
-            <Space height={50} />
-          </>
-        )
-      )}
+      <div style={{ minWidth: "950px" }}>
+        <Text as="h2" typo="h2">
+          스터디 커리큘럼
+        </Text>
+        <Space height={10} />
+        <Description />
+        <Space height={50} />
+        <RepositorySubmissionBox
+          repositoryLink={studyDashboard.studyHistory.githubLink}
+          studyId={studyId}
+        />
+        <Space height={50} />
+        {studyDashboard.sessions.map(
+          ({
+            session,
+            attendanceStatus,
+            assignmentHistoryStatus,
+            assignmentHistory,
+          }) => (
+            <div key={session.position}>
+              <CurriculumItem
+                assignmentHistory={assignmentHistory}
+                assignmentHistoryStatus={assignmentHistoryStatus}
+                attendanceStatus={attendanceStatus}
+                session={session}
+                studyHistory={studyDashboard.studyHistory}
+              />
+              <Space height={50} />
+            </div>
+          )
+        )}
+      </div>
     </div>
   );
 };
 
-const containerStyle = css({ paddingLeft: "1rem" });
+const containerStyle = css({
+  paddingLeft: "1rem",
+  width: "100%",
+  maxWidth: "100%",
+  overflowX: "auto",
+});
 
 export default Curriculum;
