@@ -30,7 +30,9 @@ export const AttendanceCheckBox = () => {
       <Flex alignItems="center" direction="column">
         <Text typo="h1">{studyName}</Text>
         <Space height={8} />
-        <Text typo="body1">{mentorName}</Text>
+        <Text typo="body1">
+          {mentorName != null ? `${mentorName} 멘토` : "탈퇴한 회원"}
+        </Text>
       </Flex>
       <Space height={20} />
       <Divider />

@@ -22,7 +22,7 @@ const MyOngoingStudy = ({ myOngoingStudyData }: MyOngoingStudyProps) => {
                   <Box
                     key={studyId}
                     style={{ width: 376, flexShrink: 0 }}
-                    subText={`${semester.academicYear}-${semester.semesterType === "FIRST" ? 1 : 2} · ${mentorName} 멘토 · ${studyKoreanMap[studyType]} 스터디`}
+                    subText={`${semester.academicYear}-${semester.semesterType === "FIRST" ? 1 : 2} ·  ${mentorName != null ? `${mentorName} 멘토` : "탈퇴한 회원"}· ${studyKoreanMap[studyType]} 스터디`}
                     text={studyName}
                     variant="arrow"
                   />

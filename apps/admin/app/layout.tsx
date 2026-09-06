@@ -3,6 +3,7 @@ import "wowds-ui/styles.css";
 import "@wow-class/ui/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { JotaiProvider } from "components/JotaiProvider";
 import Navbar from "components/Navbar";
 import { metaData } from "constants/metaData";
@@ -11,11 +12,12 @@ import type { ReactNode } from "react";
 import { ToastContainer } from "react-toastify";
 export const metadata: Metadata = {
   title: {
-    default: "와우클래스: 멘토 | GDGoC Hongik 스터디 서비스",
+    default: "와우클래스: 멘토 | GDG Hongik Univ. 스터디 서비스",
     template: "%s | 와우클래스 멘토",
   },
-  description: "와우클래스는 GDGoC Hongik이 제공하는 스터디 관리 플랫폼입니다.",
-  keywords: ["GDSC", "Hongik", "스터디 서비스", "와우 클래스"],
+  description:
+    "와우클래스는 GDG Hongik Univ.가 제공하는 스터디 관리 플랫폼입니다.",
+  keywords: ["GDG", "Hongik", "스터디 서비스", "와우 클래스"],
   openGraph: metaData.openGraph,
   robots: {
     index: false,
@@ -56,6 +58,9 @@ const RootLayout = ({
           {modal}
         </JotaiProvider>
       </body>
+      {process.env.NEXT_PUBLIC_GA_MENTOR_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MENTOR_ID} />
+      )}
     </html>
   );
 };

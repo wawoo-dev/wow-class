@@ -52,7 +52,11 @@ export const CompletedStudy = async () => {
               )}
             </Table.Td>
             <Table.Td style={tdStyle}>
-              <Text className={mentorTextstyle}>{study.mentorName} 멘토</Text>
+              <Text className={mentorTextstyle}>
+                {study.mentorName !== null
+                  ? `${study.mentorName} 멘토`
+                  : "탈퇴한 회원"}
+              </Text>
             </Table.Td>
             <Table.Td style={tdStyle}>
               <Text>

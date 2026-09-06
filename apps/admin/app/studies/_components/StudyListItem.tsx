@@ -45,7 +45,17 @@ const StudyListItem = ({
         </Flex>
       </Table.Left>
       <Table.Right style={TableRightStyle}>
-        <Text typo="body1">{mentorName} 멘토</Text>
+        <Text
+          typo="body1"
+          style={{
+            minWidth: "50px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {mentorName != null ? `${mentorName} 멘토` : "탈퇴한 회원"}
+        </Text>
         <Link
           href={descriptionNotionLink || ""}
           rel="noopener"
@@ -55,8 +65,13 @@ const StudyListItem = ({
           <WowLinkIcon height={24} stroke="sub" width={24} />
           <TextButton
             aria-label={`${title} 스터디 소개 페이지 열기`}
-            style={{ padding: 0 }}
             text="스터디 소개 페이지"
+            style={{
+              padding: 0,
+              minWidth: "75px",
+              whiteSpace: "normal",
+              wordBreak: "keep-all",
+            }}
           />
         </Link>
         <Flex alignItems="center" gap="sm">
@@ -65,6 +80,7 @@ const StudyListItem = ({
               aria-label="스터디 삭제 확인 페이지로 이동"
               asProp={Link}
               size="sm"
+              style={{ minWidth: "106px", maxHeight: "38px" }}
               variant="outline"
               href={`${routerPath["delete-study-check"].href}/${studyId}?${
                 querySemester ? `semester=${querySemester}&` : ""
@@ -81,6 +97,7 @@ const StudyListItem = ({
             asProp={Link}
             href={`${routerPath.studyDetailInfo.href}${studyId}`}
             size="sm"
+            style={{ minWidth: "119px", maxHeight: "38px" }}
             variant="solid"
           >
             상세 정보 입력
@@ -114,6 +131,7 @@ const TableLeftStyle = {
   flex: 2,
   alignItems: "center",
   gap: "31px",
+  minWidth: "350px",
 };
 
 const TableRightStyle = {

@@ -108,7 +108,11 @@ export const CurriculumItem = ({
             <>
               <Flex alignItems="center" justifyContent="space-between">
                 <section id={`assignment-info-${position}`}>
-                  <Flex alignItems="center" gap="xs">
+                  <Flex
+                    alignItems="center"
+                    gap="xs"
+                    style={{ maxWidth: "450px" }}
+                  >
                     <Text>{assignmentTitle}</Text>
                     <Link
                       className={introduceLinkStyle}
