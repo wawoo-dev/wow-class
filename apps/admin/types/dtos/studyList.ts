@@ -28,8 +28,8 @@ export interface StudyApiResponseV2Dto {
   };
   discordChannelId: string;
   discordRoleId: string;
-  mentorId: number;
-  mentorName: string;
+  mentorId: number | null;
+  mentorName: string | null;
   minAssignmentLength?: number;
 }
 

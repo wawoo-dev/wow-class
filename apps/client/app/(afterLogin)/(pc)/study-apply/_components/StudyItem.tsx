@@ -94,7 +94,7 @@ const StudyItem = ({ study, appliedStudyIds }: StudyItemProps) => {
         )}
       </Flex>
       <Text className={textCellStyle({ type: "mentor" })}>
-        {mentorName} 멘토
+        {mentorName != null ? `${mentorName} 멘토` : "탈퇴한 회원"}
       </Text>
       <Text
         className={timeCellStyle({

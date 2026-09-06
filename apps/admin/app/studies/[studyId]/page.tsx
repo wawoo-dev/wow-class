@@ -40,12 +40,13 @@ const StudyPage = async ({ params }: { params: { studyId: string } }) => {
     ? await studyApi.getStudyList()
     : await studyApi.getMyStudyList();
   const myStudy = data?.filter((study) => study.study.studyId === +studyId)[0];
-  const studyType = (await studyApi.getStudyBasicInfo(+studyId))?.type;
+  const studyInfo = await studyApi.getStudyBasicInfo(+studyId);
+  const studyType = studyInfo?.type ?? "OFFLINE";
 
   return (
     <Flex direction="column" gap="64px">
       <div className={HeaderWrapper}>
-        <Header studyId={studyId} />
+        <Header studyInfo={studyInfo} />
         <Link
           href={`${routerPath.studyDetailInfo.href}/${studyId}`}
           style={{ ...EditIconStyle, position: "absolute" }}
@@ -53,7 +54,7 @@ const StudyPage = async ({ params }: { params: { studyId: string } }) => {
           <Edit height={24} stroke="black" width={24} />
         </Link>
       </div>
-      {isOnlineOfflineStudyType(studyType ?? "OFFLINE") && (
+      {studyInfo && isOnlineOfflineStudyType(studyType) && (
         <AttendanceList studySessions={myStudy?.studySessions} />
       )}
       <Divider style={MinHeightFullDividerStyle} />
@@ -61,7 +62,7 @@ const StudyPage = async ({ params }: { params: { studyId: string } }) => {
       <Divider style={MinHeightFullDividerStyle} />
       <CurriculumList
         studySessions={myStudy?.studySessions}
-        studyType={studyType ?? "OFFLINE"}
+        studyType={studyType}
       />
       <Divider style={MinHeightFullDividerStyle} />
       <StudyStatics studyId={studyId} />

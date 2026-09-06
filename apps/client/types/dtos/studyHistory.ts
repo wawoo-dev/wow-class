@@ -46,7 +46,7 @@ export interface CompletedStudyDto {
   studyType: StudyType;
   notionLink?: string;
   introduction?: string;
-  mentorName: string;
+  mentorName: string | null;
   totalWeek: number;
   studyHistoryStatus: "NONE" | "COMPLETED";
   achievements: Array<AchievmentType>;

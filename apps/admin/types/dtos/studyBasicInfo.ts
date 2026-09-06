@@ -13,8 +13,8 @@ export interface StudyBasicInfoApiResponseDto {
   type: StudyType;
   descriptionNotionLink: string;
   description: string;
-  mentorId: number;
-  mentorName: string;
+  mentorId: number | null;
+  mentorName: string | null;
   dayOfWeek: DayOfWeekType;
   startTime: TimeType;
   endTime: TimeType;

@@ -16,6 +16,7 @@ export const studyApi = {
       apiPath.studyList,
       {
         next: { tags: [tags.studyList] },
+        cache: "force-cache",
       }
     );
 
@@ -106,6 +107,7 @@ export const studyApi = {
       `${mentorApiPath.mentorStudy}/${studyId}/statistics`,
       {
         next: { tags: [tags.statistics] },
+        cache: "force-cache",
       }
     );
     return response.data;

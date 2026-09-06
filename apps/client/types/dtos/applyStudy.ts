@@ -7,8 +7,8 @@ export interface StudyList {
   type: StudyType;
   description?: string;
   descriptionNotionLink?: string;
-  mentorId: number;
-  mentorName: string;
+  mentorId: number | null;
+  mentorName: string | null;
   dayOfWeek: DayOfWeekType;
   startTime: Time | null;
   endTime: Time | null;

@@ -6,13 +6,19 @@ import { useAtomValue } from "jotai";
 import { useState } from "react";
 
 import { studyAtom } from "../_contexts/StudyProvider";
-import StudentFilter from "./StudentFilter";
 import StudentPagination from "./StudentPagination";
 import StudentList from "./StudentTable/StudentList";
 
 const StudentsContent = () => {
   const selectedStudy = useAtomValue(studyAtom);
   const [page, setPage] = useState(1);
+  const [prevStudyId, setPrevStudyId] = useState(selectedStudy?.studyId);
+
+  if (prevStudyId !== selectedStudy?.studyId) {
+    setPrevStudyId(selectedStudy?.studyId);
+    setPage(1);
+  }
+
   const handleClickChangePage = (nextPage: number) => {
     setPage(nextPage);
   };
